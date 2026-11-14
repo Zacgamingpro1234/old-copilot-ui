@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Old Copilot Look",
+  "version": "1.0.0",
+  "description": "Restyles the new copilot.com chat to resemble the old Copilot for Web (navy UI, Projects/Smart labels).",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://copilot.com/*",
+    "https://*.copilot.com/*"
+  ],
+  "action": {
+    "default_title": "Old Copilot Look",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://copilot.com/*",
+        "https://*.copilot.com/*"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "fonts/*.woff2"
+      ],
+      "matches": [
+        "https://copilot.com/*",
+        "https://*.copilot.com/*"
+      ]
+    }
+  ]
+}

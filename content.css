@@ -1,0 +1,402 @@
+@layer foundation, fluent, components, application, overrides, user-accessibility-override, important;
+/* Bundled Ginto Copilot variable font */
+@font-face {
+  font-family: "Ginto Copilot Variable";
+  src: url("chrome-extension://__MSG_@@extension_id__/fonts/Ginto-Copilot-Upright-Variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+}
+
+/* Our rules go in the FIRST layer: for !important declarations, earlier layers win, so this beats
+   any !important the site ships in its own layers. */
+@layer foundation {
+/* Old Copilot look. Everything is scoped to html.ocu so the popup toggle works.
+   Palette values are estimated from the old UI screenshot; tweak here. */
+html.ocu {
+  /* Real old-Copilot palette (midnight / slate) */
+  --ocu-sidebar: rgb(14 17 27);        /* midnight-900 */
+  --ocu-bg: rgb(21 26 40);             /* midnight-850 */
+  --ocu-surface: rgb(28 35 56);        /* midnight-800 */
+  --ocu-surface-hover: rgb(35 44 73);  /* midnight-750 */
+  --ocu-border: rgb(44 56 96);         /* midnight-700 */
+  --ocu-text: rgb(241 245 255);        /* midnight-150 */
+  --ocu-text-dim: rgb(164 173 200);    /* slate-350 */
+  --ocu-accent: rgb(151 171 234);      /* midnight-350 */
+  --ocu-radius: 28px;
+
+  --colorNeutralBackground1: var(--ocu-bg) !important;
+  --colorNeutralBackground2: var(--ocu-sidebar) !important;
+  --colorNeutralBackground3: var(--ocu-surface) !important;
+  --colorNeutralBackground4: var(--ocu-sidebar) !important;
+  --colorNeutralBackground5: var(--ocu-sidebar) !important;
+  --colorNeutralBackground6: var(--ocu-surface) !important;
+  --colorSubtleBackground: transparent !important;
+  --colorSubtleBackgroundHover: var(--ocu-surface-hover) !important;
+  --colorSubtleBackgroundPressed: var(--ocu-surface-hover) !important;
+  --colorSubtleBackgroundSelected: var(--ocu-surface) !important;
+  --colorNeutralForeground1: var(--ocu-text) !important;
+  --colorNeutralForeground2: var(--ocu-text) !important;
+  --colorNeutralForeground3: var(--ocu-text-dim) !important;
+  --colorNeutralStroke1: var(--ocu-border) !important;
+  --colorNeutralStroke2: var(--ocu-border) !important;
+  --colorNeutralStrokeAccessible: var(--ocu-border) !important;
+  --colorBrandForeground1: var(--ocu-accent) !important;
+  --colorBrandForegroundLink: var(--ocu-accent) !important;
+  --colorNeutralBackground1Hover: var(--ocu-surface-hover) !important;
+  --colorNeutralBackground1Pressed: var(--ocu-surface-hover) !important;
+  --colorNeutralBackground1Selected: var(--ocu-surface) !important;
+  --colorNeutralBackground2Hover: var(--ocu-surface-hover) !important;
+  --colorNeutralBackground2Pressed: var(--ocu-surface-hover) !important;
+  --colorNeutralBackground2Selected: var(--ocu-surface) !important;
+  --colorNeutralBackground3Hover: var(--ocu-surface-hover) !important;
+  --colorNeutralBackground3Pressed: var(--ocu-surface-hover) !important;
+  --colorNeutralBackground3Selected: var(--ocu-surface) !important;
+  --colorNeutralBackground4Hover: var(--ocu-surface-hover) !important;
+  --colorNeutralBackground4Pressed: var(--ocu-surface-hover) !important;
+  --colorNeutralBackground4Selected: var(--ocu-surface) !important;
+  --colorNeutralBackgroundStatic: var(--ocu-surface) !important;
+  --colorNeutralBackgroundAlpha: rgb(28 35 56 / .8) !important;
+  --colorNeutralBackgroundAlpha2: rgb(28 35 56 / .9) !important;
+  --colorSubtleBackgroundLightAlphaHover: var(--ocu-surface-hover) !important;
+  --colorSubtleBackgroundLightAlphaPressed: var(--ocu-surface-hover) !important;
+  --colorSubtleBackgroundLightAlphaSelected: var(--ocu-surface) !important;
+  --colorNeutralCardBackground: var(--ocu-surface) !important;
+  --colorNeutralCardBackgroundHover: var(--ocu-surface-hover) !important;
+  --colorNeutralStroke1Hover: var(--ocu-border) !important;
+  --colorNeutralStroke3: var(--ocu-border) !important;
+  --colorNeutralStrokeSubtle: var(--ocu-border) !important;
+  --colorNeutralForeground4: var(--ocu-text-dim) !important;
+  color-scheme: dark;
+}
+
+/* Previously-gray spots: top header bar, "Chats" category row, selected chat,
+   composer, sidebar footer / user row. */
+html.ocu #m365-copilot-app-layout-content header,
+html.ocu #m365-copilot-app-layout-content > div:first-child {
+  background: var(--ocu-bg) !important;
+}
+html.ocu .fai-SplitCopilotNavCategoryItem,
+html.ocu .fai-SplitCopilotNavCategoryItem__navCategoryItem {
+  background: var(--ocu-surface) !important;
+  color: var(--ocu-text-dim) !important;
+}
+html.ocu .fai-SplitCopilotNavCategoryItem:hover,
+html.ocu .fai-SplitCopilotNavCategoryItem__navCategoryItem:hover {
+  background: var(--ocu-surface-hover) !important;
+}
+html.ocu .fai-CopilotNavSubItem[aria-current="page"],
+html.ocu .fai-CopilotNavSubItem[aria-current="true"],
+html.ocu .fai-CopilotNavSubItem:has([aria-current="page"]),
+html.ocu .fai-CopilotNavSubItem:has([aria-current="true"]) {
+  background: var(--ocu-surface) !important;
+}
+html.ocu .fai-CopilotNavDrawerFooter,
+html.ocu [data-testid="nav-footer"],
+html.ocu [data-testid="nav-footer"] > * {
+  background: var(--ocu-sidebar) !important;
+}
+html.ocu .fai-BebopLiteChatInput *,
+html.ocu [data-testid="chat-input-wrapper"] > * {
+  --colorNeutralBackground1: var(--ocu-surface);
+  --colorNeutralBackground3: var(--ocu-surface);
+}
+
+html.ocu body,
+html.ocu #m365-copilot-app-layout-root,
+html.ocu .fui-FluentProvider {
+  background: var(--ocu-sidebar) !important;
+  color: var(--ocu-text) !important;
+  font-family: "Ginto Copilot Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+  -font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variation-settings: "wght" 410;
+}
+
+/* Sidebar */
+html.ocu [role="navigation"].fai-CopilotNavDrawer,
+html.ocu .fai-CopilotNavDrawerHeader,
+html.ocu .fai-CopilotNavDrawerBody,
+html.ocu .fai-CopilotNavDrawerFooter {
+  background: var(--ocu-sidebar) !important;
+  border-color: transparent !important;
+}
+html.ocu .fai-CopilotNavItem,
+html.ocu .fai-CopilotNavSubItem,
+html.ocu .fai-SplitCopilotNavCategoryItem {
+  border-radius: 14px !important;
+  color: var(--ocu-text) !important;
+}
+html.ocu .fai-CopilotNavItem:hover,
+html.ocu .fai-CopilotNavSubItem:hover,
+html.ocu .fai-SplitCopilotNavCategoryItem:hover {
+  background: var(--ocu-surface-hover) !important;
+}
+html.ocu [data-testid="header-wordmark"] { font-weight: 600 !important; letter-spacing: .2px; }
+html.ocu [data-testid="nav-footer"] { border-top: 1px solid var(--ocu-border) !important; }
+html.ocu [data-testid="upgrade-copilot"] {
+  border-radius: 999px !important;
+  background: var(--ocu-surface) !important;
+  border: 1px solid var(--ocu-border) !important;
+}
+
+/* Main panel: rounded, lighter card beside the dark sidebar */
+html.ocu #m365-copilot-app-layout-content {
+  background: var(--ocu-bg) !important;
+  border-radius: .625rem !important;
+  margin: 8px 8px 8px 0 !important;
+  overflow: hidden;
+}
+html.ocu #llm-web-ui-messageList-scrollable-container,
+html.ocu .fai-CopilotChat {
+  background: transparent !important;
+}
+
+/* Composer: big pill like the old UI */
+html.ocu .fai-BebopLiteChatInput,
+html.ocu [data-testid="chat-input-wrapper"] {
+  background: var(--ocu-surface) !important;
+  border: 1px solid var(--ocu-border) !important;
+  border-radius: var(--ocu-radius) !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .35) !important;
+}
+html.ocu #m365-chat-editor-target-element { color: var(--ocu-text) !important; }
+html.ocu #m365-chat-editor-target-element [data-placeholder]::before,
+html.ocu #m365-chat-editor-target-element p.is-empty::before { color: var(--ocu-text-dim) !important; }
+html.ocu [data-testid="PlusMenuButton"],
+html.ocu button[aria-label="Auto, Model Selector"] {
+  border-radius: 999px !important;
+}
+html.ocu button[aria-label="Auto, Model Selector"] {
+  background: var(--ocu-surface-hover) !important;
+}
+
+/* Scrollbars */
+html.ocu * { scrollbar-color: var(--ocu-border) transparent; }
+
+
+/* ---- Main chat area: lighter tone (#151A28) ---- */
+html.ocu {
+  --ocu-bg: #151a28;
+}
+html.ocu #m365-copilot-app-layout-content,
+html.ocu #m365-copilot-app-layout-content > div,
+html.ocu #m365-copilot-app-layout-content header,
+html.ocu #llm-web-ui-messageList-scrollable-container,
+html.ocu .fai-CopilotChat,
+html.ocu .fai-CopilotChat > div {
+  background: #151a28 !important;
+  background-image: none !important;
+}
+
+/* ---- Code blocks: darker tone (midnight-900) ---- */
+html.ocu .scriptor-component-code-block {
+  background: var(--ocu-sidebar) !important;
+  border: 1px solid var(--ocu-border) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+html.ocu .scriptor-component-code-block div,
+html.ocu .scriptor-component-code-block pre,
+html.ocu .scriptor-component-code-block code {
+  background-color: transparent !important;
+}
+
+/* ---- Full token override, applied on html AND every Fluent provider ----
+   (providers define their own tokens, so html-level overrides alone don't reach
+   anything inside them) */
+html.ocu,
+html.ocu .fui-FluentProvider,
+html.ocu [class*="fui-FluentProvider"] {
+  /* text */
+  --colorNeutralForeground1: rgb(229 235 250) !important;   /* slate-200 */
+  --colorNeutralForeground1Selected: rgb(251 252 254) !important;
+  --colorNeutralForeground2: rgb(194 202 223) !important;    /* slate-300 */
+  --colorNeutralForeground2Selected: rgb(251 252 254) !important;
+  --colorNeutralForeground3: rgb(164 173 200) !important;    /* slate-350 */
+  --colorNeutralForeground3Selected: rgb(215 222 239) !important;
+  --colorNeutralForeground4: rgb(135 145 176) !important;    /* slate-400 */
+  --colorNeutralForeground5: rgb(194 202 223) !important;
+  --colorBrandForeground1: rgb(183 201 254) !important;      /* midnight-300 */
+  --colorBrandForeground2: rgb(151 171 234) !important;      /* midnight-350 */
+  --colorBrandForegroundLink: rgb(183 201 254) !important;
+  --colorNeutralForeground2Link: rgb(229 235 250) !important;
+  --colorCompoundBrandForeground1: rgb(183 201 254) !important;
+  --colorBrandForegroundOnLight: rgb(183 201 254) !important;
+
+  /* backgrounds */
+  --colorNeutralBackground1: #151a28 !important;
+  --colorNeutralBackground1Selected: rgb(28 35 56) !important;
+  --colorNeutralBackground2: rgb(14 17 27) !important;
+  --colorNeutralBackground2Selected: rgb(28 35 56) !important;
+  --colorNeutralBackground3: rgb(28 35 56) !important;
+  --colorNeutralBackground3Selected: #151a28 !important;
+  --colorNeutralBackground4: rgb(21 26 40) !important;
+  --colorNeutralBackground4Selected: rgb(14 17 27) !important;
+  --colorNeutralBackground5: rgb(14 17 27) !important;
+  --colorNeutralBackground5Hover: rgb(21 26 40) !important;
+  --colorNeutralBackground5Pressed: rgb(14 17 27) !important;
+  --colorNeutralBackground5Selected: rgb(14 17 27) !important;
+  --colorNeutralBackground6: rgb(28 35 56) !important;
+  --colorNeutralBackground7Hover: rgb(28 35 56) !important;
+  --colorNeutralBackground7Pressed: rgb(35 44 73) !important;
+  --colorNeutralBackground8: #151a28 !important;
+  --colorNeutralBackgroundStatic: rgb(28 35 56) !important;
+  --colorNeutralBackgroundAlpha: rgb(14 17 27 / .6) !important;
+  --colorNeutralBackgroundAlpha2: rgb(21 26 40 / .8) !important;
+  --colorNeutralBackgroundDisabled: rgb(28 35 56) !important;
+  --colorNeutralBackgroundDisabled2: rgb(21 26 40) !important;
+  --colorSubtleBackgroundHover: rgb(35 44 73) !important;
+  --colorSubtleBackgroundPressed: rgb(44 56 96) !important;
+  --colorSubtleBackgroundSelected: rgb(28 35 56) !important;
+  --colorSubtleBackgroundLightAlphaHover: rgb(21 26 40 / .8) !important;
+  --colorSubtleBackgroundLightAlphaPressed: rgb(21 26 40 / .5) !important;
+  --colorNeutralStencil1: rgb(44 56 96) !important;
+  --colorNeutralStencil2: rgb(35 44 73) !important;
+  --colorNeutralCardBackground: rgb(28 35 56) !important;
+  --colorNeutralCardBackgroundHover: rgb(35 44 73) !important;
+  --colorNeutralCardBackgroundPressed: rgb(21 26 40) !important;
+  --colorNeutralCardBackgroundSelected: rgb(35 44 73) !important;
+  --colorNeutralCardBackgroundDisabled: rgb(14 17 27) !important;
+  --colorBrandBackground: rgb(83 105 182) !important;        /* midnight-450 */
+  --colorCompoundBrandBackground: rgb(83 105 182) !important;
+  --colorBrandBackgroundStatic: rgb(35 44 73) !important;
+  --colorBrandBackground2: rgb(35 44 73) !important;
+  --colorBrandBackground3Static: rgb(28 35 56) !important;
+  --colorBrandBackground4Static: #151a28 !important;
+  --colorBrandBackgroundInverted: rgb(35 44 73) !important;
+  --colorSurfaceNeutralNear: #151a28 !important;
+  --colorBackgroundNeutralLoud: rgb(83 105 182) !important;
+
+  /* strokes */
+  --colorNeutralStroke1: rgb(44 56 96) !important;           /* midnight-700 */
+  --colorNeutralStroke2: rgb(44 56 96) !important;
+  --colorNeutralStroke3: rgb(98 109 143) !important;         /* slate-450 */
+  --colorNeutralStroke4: rgb(35 44 73) !important;
+  --colorNeutralStroke4Hover: rgb(28 35 56) !important;
+  --colorNeutralStroke4Pressed: rgb(21 26 40) !important;
+  --colorNeutralStroke4Selected: rgb(35 44 73) !important;
+  --colorNeutralStrokeSubtle: rgb(44 56 96) !important;
+  --colorNeutralStrokeAccessible: rgb(164 173 200) !important;
+  --colorNeutralStrokeDisabled: rgb(44 56 96) !important;
+  --colorNeutralStrokeDisabled2: rgb(35 44 73) !important;
+  --colorBrandStroke1: rgb(121 143 212) !important;
+  --colorCompoundBrandStroke: rgb(83 105 182) !important;
+  --colorStrokeNeutralSoft: rgb(62 71 96) !important;
+  --colorStrokeNeutralHeavy: rgb(215 222 239) !important;
+
+  /* generic (gnrc) surfaces */
+  --gnrc-color-surface-neutral-farther: rgb(14 17 27) !important;
+  --gnrc-color-surface-neutral-far: #151a28 !important;
+  --gnrc-color-surface-neutral-near: rgb(28 35 56) !important;
+  --gnrc-color-surface-neutral-nearer: rgb(35 44 73) !important;
+  --gnrc-color-surface-neutral-farther-hover: rgb(21 26 40) !important;
+  --gnrc-color-surface-neutral-farther-pressed: rgb(28 35 56) !important;
+  --gnrc-color-surface-neutral-far-hover: rgb(28 35 56) !important;
+  --gnrc-color-surface-neutral-far-pressed: rgb(35 44 73) !important;
+  --gnrc-color-surface-neutral-near-hover: rgb(35 44 73) !important;
+  --gnrc-color-surface-neutral-near-pressed: rgb(44 56 96) !important;
+  --gnrc-color-surface-neutral-nearer-hover: rgb(44 56 96) !important;
+  --gnrc-color-surface-neutral-nearer-pressed: rgb(53 68 121) !important;
+  --gnrc-color-surface-neutral-translucent-hover: rgb(35 44 73 / .53) !important;
+  --gnrc-color-surface-neutral-translucent-pressed: rgb(44 56 96 / .56) !important;
+  --gnrc-color-background-neutral-translucent-hover: rgb(35 44 73 / .53) !important;
+  --gnrc-color-background-neutral-translucent-pressed: rgb(44 56 96 / .56) !important;
+  --gnrc-color-background-neutral-loud-hover: rgb(98 109 143) !important;
+  --gnrc-color-background-neutral-loud-pressed: rgb(135 145 176) !important;
+  --gnrc-color-stroke-neutral-loud-hover: rgb(98 109 143) !important;
+  --gnrc-color-stroke-neutral-loud-pressed: rgb(135 145 176) !important;
+  --gnrc-color-foreground-neutral-secondary-hover: rgb(194 202 223) !important;
+  --gnrc-color-foreground-neutral-tertiary-hover: rgb(164 173 200) !important;
+}
+
+/* ---- Composer: old-Copilot style (outer ring + inner pad, text above, buttons below) ---- */
+/* Layer 1 (outer): light, soft 1px ring.  Layer 2 (its padding/background): slightly darker,
+   thicker band.  Layer 3 (inputWrapper): the dark content area holding the text + buttons. */
+html.ocu .fai-BebopLiteChatInput {
+  background: rgb(27 34 56) !important;                 /* layer 2: band */
+  border: 1px solid rgb(255 255 255 / .16) !important;   /* layer 1: light soft ring */
+  border-radius: 32px !important;
+  padding: 5px !important;
+  box-shadow: 0 16px 24px rgba(0,0,0,.16) !important;
+  overflow: hidden;
+}
+html.ocu .fai-BebopLiteChatInput > .fai-BebopLiteChatInput__inputWrapper {
+  background: #151a28 !important;                        /* layer 3: content (same as chat bg) */
+  border: 0 !important;
+  border-radius: 28px !important;
+  box-shadow: none !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  padding: 12px 8px 6px 8px !important;
+  min-height: 0 !important;
+}
+html.ocu .fai-BebopLiteChatInput__attachments { flex: 1 0 100% !important; order: -2; }
+html.ocu .fai-BebopLiteChatInput__editor {
+  flex: 1 0 100% !important;
+  order: -1;
+  padding: 0 10px 8px !important;
+  min-height: 24px;
+}
+html.ocu .fai-BebopLiteChatInput__capabilities { order: 0; }
+html.ocu .fai-BebopLiteChatInput__contentBefore {
+  order: 1;
+  flex: 0 0 auto !important;
+}
+html.ocu .fai-BebopLiteChatInput__contentBefore > svg[data-content-before-search] { display: none !important; }
+html.ocu .fai-BebopLiteChatInput__actions {
+  order: 2;
+  margin-left: auto !important;
+  flex: 0 0 auto !important;
+}
+html.ocu #m365-chat-editor-target-element { color: #fff !important; }
+html.ocu .fai-EditorInput__placeholderValue {
+  color: rgb(135 145 176 / .9) !important;  /* slate-400 */
+}
+/* plus button: bordered rounded square like old "create" button */
+html.ocu [data-testid="PlusMenuButton"] {
+  border: 1px solid rgb(255 255 255 / .08) !important;
+  border-radius: 16px !important;
+  background: transparent !important;
+}
+html.ocu [data-testid="PlusMenuButton"]:hover { background: rgb(0 0 0 / .3) !important; }
+
+/* Fix the remaining gray surface on the Copilot page */
+html.ocu div.___y3kcdr0.f22iagw.f1vx9l62.f1l02sjl.fbff9bj.f16f9ltx.f13rmhcz.f5b47ha.f1ewtqcl.f5zp4f.f1a3p1vp.fz7g6wx.fbm3gr4.fcgxt0o.f1ujusj6.f122n59.fly5x3f.fbhxue7 {
+  background-color: var(--ocu-bg, #151a28) !important;
+  background-image: none !important;
+}
+
+/* Match the Ginto typography used by the newer Copilot page */
+html.ocu body,
+html.ocu body *,
+html.ocu #m365-copilot-app-layout-root,
+html.ocu #m365-copilot-app-layout-root * {
+  font-family: "Ginto Copilot Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variation-settings: "wght" 410;
+}
+}
+
+@layer foundation {
+/* empty banner slot was adding a thick bump above the content layer */
+html.ocu .fai-BebopLiteChatInput__banner:empty { display: none !important; }
+}
+
+@layer foundation {
+/* The grey div paints --m365-copilot-canvas-background (set on the layout root, #252422 in dark mode) */
+html.ocu,
+html.ocu #m365-copilot-app-layout-root,
+html.ocu .dGJXZG9L {
+  --m365-copilot-canvas-background: #151a28 !important;
+  --m365-copilot-canvas-background-image: none !important;
+}
+html.ocu div.___1ttzoqk {
+  background-color: #151a28 !important;
+  background-image: none !important;
+}
+}
